@@ -14,6 +14,9 @@ module.exports = () => {
       filename: '[name].bundle.js',
       path: path.resolve(__dirname, 'dist'),
     },
+    devtool: {
+      devtool: 'source-map',
+    },
     plugins: [
       new HtmlWebpackPlugin({
         template: './index.html',
@@ -38,7 +41,7 @@ module.exports = () => {
         ],
       }),
       new InjectManifest({
-        swSrc: './src/sw.js',
+        swSrc: './src-sw.js',
         swDest: 'src-sw.js',
       }),
     ],
@@ -47,6 +50,10 @@ module.exports = () => {
         {
             test: /\.css$/i,
             use: ['style-loader', 'css-loader'],
+        },
+        {
+          test: /\.(png|svg|jpg|jpeg|gif)$/i,
+          type: "asset/resource",
         },
         {
           test: /\.m?js$/,
